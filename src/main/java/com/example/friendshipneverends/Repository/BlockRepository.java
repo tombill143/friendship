@@ -1,7 +1,8 @@
 package com.example.friendshipneverends.Repository;
 
+import com.example.friendshipneverends.Entity.Block;
 import org.springframework.data.jpa.repository.JpaRepository;
-import Entity.Block;
+
 
 public interface BlockRepository extends JpaRepository<Block, Integer> {
 }
