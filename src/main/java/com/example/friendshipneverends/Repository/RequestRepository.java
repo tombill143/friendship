@@ -1,4 +1,8 @@
 package com.example.friendshipneverends.Repository;
 
-public interface RequestRepository {
+import com.example.friendshipneverends.Entity.Request;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface RequestRepository extends JpaRepository<Request, Integer>{
 }

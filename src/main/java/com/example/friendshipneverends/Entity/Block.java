@@ -1,9 +1,26 @@
 package com.example.friendshipneverends.Entity;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "block", schema = "socialmedia")
 public class Block {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "block_id", nullable = false, length = 11)
     private int blockId;
+    @Basic
+    @Column(name= "from_user_email", length = 100, nullable = false)
     private String fromUserEmail;
+    @Basic
+    @Column(name = "to_user_email", length = 100, nullable = false)
     private String toUserEmail;
 
     public Block() {
