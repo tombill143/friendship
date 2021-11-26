@@ -1,4 +1,4 @@
-package Entity;
+package com.example.friendshipneverends.Entity;
 
 public class Request {
     private int requestId;
