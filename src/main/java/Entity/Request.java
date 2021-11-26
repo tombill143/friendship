@@ -1,4 +1,4 @@
-package Entities;
+package Entity;
 
 public class Request {
     private int requestId;

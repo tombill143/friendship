@@ -1,10 +1,10 @@
-package Entities;
+package Entity;
 
-public class Users {
+public class User {
   private String userEmail;
   private String userName;
 
-  public Users(String userEmail, String userName) {
+  public User(String userEmail, String userName) {
     this.userEmail = userEmail;
     this.userName = userName;
   }
@@ -28,7 +28,7 @@ public class Users {
 
   @Override
   public String toString() {
-    return "Users{" +
+    return "User{" +
             "userEmail='" + userEmail + '\'' +
             ", userName='" + userName + '\'' +
             '}';

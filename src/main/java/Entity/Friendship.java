@@ -1,11 +1,11 @@
-package Entities;
+package Entity;
 
-public class Friendships {
+public class Friendship {
   private int friendshipId;
   private String friend1Email;
   private String friend2Email;
 
-  public Friendships(int friendshipId, String friend1Email, String friend2Email) {
+  public Friendship(int friendshipId, String friend1Email, String friend2Email) {
     this.friendshipId = friendshipId;
     this.friend1Email = friend1Email;
     this.friend2Email = friend2Email;
@@ -38,7 +38,7 @@ public class Friendships {
 
   @Override
   public String toString() {
-    return "Friendships{" +
+    return "Friendship{" +
             "friendshipId=" + friendshipId +
             ", friend1Email='" + friend1Email + '\'' +
             ", friend2Email='" + friend2Email + '\'' +
