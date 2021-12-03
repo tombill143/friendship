@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name= "user", schema= "customers6")
 public class User {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+ // @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "email", length = 100, nullable = false)
   private String email;
   @Basic
