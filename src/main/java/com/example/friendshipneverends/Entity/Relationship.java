@@ -1,5 +1,6 @@
 package com.example.friendshipneverends.Entity;
 
+import com.example.friendshipneverends.Entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,17 +10,18 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
 @Table(name = "relationship", schema = "customers6")
 public class Relationship {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "relationship_id", length = 11, nullable = false)
   private int relationshipId;
-  @OneToMany
-  @JoinColumn(name= "email", nullable = false)
+  @ManyToOne
+  @JoinColumn(name= "sourceUser",referencedColumnName = "email", nullable = false)
   private User sourceUser;
-  @OneToMany
-  @JoinColumn(name = "email", nullable = false)
+  @ManyToOne
+  @JoinColumn(name = "destinationUser", referencedColumnName = "email", nullable = false)
   private User destinationUser;
   @Basic
   @Column(name="connection", length =200, nullable = false)
