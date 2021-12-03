@@ -27,8 +27,7 @@ public class Relationship {
   @Column(name="connection", length =200, nullable = false)
   private String connection;
 
-  public Relationship(int relationshipId, User sourceUser, User destinationUser, String connection) {
-    this.relationshipId = relationshipId;
+  public Relationship(User sourceUser, User destinationUser, String connection) {
     this.sourceUser = sourceUser;
     this.destinationUser = destinationUser;
     this.connection = connection;

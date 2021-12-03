@@ -6,32 +6,22 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class RelationshipController {
 
+    private static String personalHost = "${IP_ADDRESS}";
+
     @PostMapping("/relationship")
     public void relationship(@RequestBody String body){
         Protocol protocol = new Protocol(body);
+
         //Check if the destinationHost is the same as ours
-        //If that's the case, create a request in the db
-        //Otherwise send a request to the destinationHost with the same protocol
+        if(protocol.getDestinationHost().equals(personalHost)){
+            //If that's the case, create a request in the db
 
-        switch(protocol.getMethod()){
-            case "ADD":
+            //Send a response back to the source user
+        }
+        else {
+            //Otherwise send a request to the destinationHost with the same protocol
 
-                break;
-            case "ACCEPT":
-
-                break;
-            case "DELETE":
-
-                break;
-            case "REMOVE":
-
-                break;
-            case "BLOCK":
-
-                break;
-            default:
-
-                break;
+            //When response is received, create a copy on own database
         }
     }
 }
