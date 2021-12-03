@@ -23,10 +23,9 @@ public class RelationshipService {
     public void manipulateRelationship(Protocol protocol){
         User source = userRepository.findByEmail(protocol.getSourceEmail());
         User destination = userRepository.findByEmail(protocol.getDestinationEmail());
-        Relationship relationship;
+        Relationship relationship  = relationshipRepository.findBySourceUserAndDestinationUser(source, destination);
         switch(protocol.getMethod()){
             case "ADD":
-                relationship = relationshipRepository.findBySourceUserAndDestinationUser(source, destination);
                 //If there isn't another relationship between them
                 if(relationship == null){
                     relationship = new Relationship(source, destination, "REQUEST");
@@ -34,7 +33,6 @@ public class RelationshipService {
                 }
                 break;
             case "ACCEPT":
-                relationship = relationshipRepository.findBySourceUserAndDestinationUser(source, destination);
                 //If their current relationship is a pending friendship
                 if(relationship.getConnection().equals("REQUEST")){
                     relationship.setConnection("FRIEND");
@@ -42,7 +40,6 @@ public class RelationshipService {
                 }
                 break;
             case "DELETE":
-                relationship = relationshipRepository.findBySourceUserAndDestinationUser(source, destination);
                 //If their current relationship is a pending friendship
                 if(relationship.getConnection().equals("REQUEST")){
                     relationshipRepository.delete(relationship);
