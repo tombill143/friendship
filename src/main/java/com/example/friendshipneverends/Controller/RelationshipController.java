@@ -5,7 +5,11 @@ import com.example.friendshipneverends.Entity.Relationship;
 import com.example.friendshipneverends.Service.RelationshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 
 @RestController
@@ -35,6 +39,18 @@ public class RelationshipController {
         }
         else {
             //Otherwise, send a request to the destinationHost with the same protocol
+            //Otherwise send a request to the destinationHost with the same protocol
+            final String REQUEST_URL = protocol.getDestinationHost() + "/relationship";
+            WebClient webClient = WebClient.builder()
+                    .baseUrl(REQUEST_URL)
+                    .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .build();
+
+            String response = webClient.post()
+                    .body(Mono.just("{request: friendship"), String.class)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
 
             //When response is received, create a copy on own database
             relationshipService.manipulateRelationship(protocol);
