@@ -13,8 +13,8 @@ import javax.persistence.*;
 public class Relationship {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "relationship_id", length = 11)
-  private int friendshipId;
+  @Column(name = "relationship_id", length = 11, nullable = false)
+  private int relationshipId;
   @Basic
   @Column(name = "source_user", length = 100, nullable = false)
   private String sourceUser;
@@ -23,18 +23,18 @@ public class Relationship {
   private String destinationUser;
 
 
-  public Relationship(int friendshipId, String sourceUser, String destinationUser) {
-    this.friendshipId = friendshipId;
+  public Relationship(int relationshipId, String sourceUser, String destinationUser) {
+    this.relationshipId = relationshipId;
     this.sourceUser = sourceUser;
     this.destinationUser = destinationUser;
   }
 
-  public int getFriendshipId() {
-    return friendshipId;
+  public int getRelationshipId() {
+    return relationshipId;
   }
 
-  public void setFriendshipId(int friendshipId) {
-    this.friendshipId = friendshipId;
+  public void setRelationshipId(int friendshipId) {
+    this.relationshipId = friendshipId;
   }
 
   public String getSourceUser() {
@@ -56,7 +56,7 @@ public class Relationship {
   @Override
   public String toString() {
     return "Relationship{" +
-            "friendshipId=" + friendshipId +
+            "relationshipId=" + relationshipId +
             ", sourceUser='" + sourceUser + '\'' +
             ", destinationUser='" + destinationUser + '\'' +
             '}';
