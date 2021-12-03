@@ -24,6 +24,12 @@ public class RelationshipService {
         User source = userRepository.findByEmail(protocol.getSourceEmail());
         User destination = userRepository.findByEmail(protocol.getDestinationEmail());
         Relationship relationship  = relationshipRepository.findBySourceUserAndDestinationUser(source, destination);
+        //Check both ways
+        Relationship backwardsRelationship = relationshipRepository.findBySourceUserAndDestinationUser(destination, source);
+        if(relationship == null){
+            relationship = backwardsRelationship;
+        }
+
         switch(protocol.getMethod()){
             case "ADD":
                 //If there isn't another relationship between them
@@ -57,9 +63,10 @@ public class RelationshipService {
                     relationship = new Relationship(source, destination, "BLOCK");
                     relationshipRepository.save(relationship);
                 }
-                else relationship.setConnection("BLOCK");
-                relationshipRepository.save(relationship);
-
+                else {
+                    relationship.setConnection("BLOCK");
+                    relationshipRepository.save(relationship);
+                }
                 break;
             default:
 
