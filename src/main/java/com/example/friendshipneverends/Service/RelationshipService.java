@@ -53,6 +53,13 @@ public class RelationshipService {
                 break;
             case "BLOCK":
 
+                if (relationship == null) {
+                    relationship = new Relationship(source, destination, "BLOCK");
+                    relationshipRepository.save(relationship);
+                }
+                else relationship.setConnection("BLOCK");
+                relationshipRepository.save(relationship);
+
                 break;
             default:
 
