@@ -31,28 +31,28 @@ public class RelationshipService {
         }
 
         switch(protocol.getMethod()){
-            case "ADD":
+            case "ADD":             //send a request to add a friend
                 //If there isn't another relationship between them
                 if(relationship == null){
                     relationship = new Relationship(source, destination, "REQUEST");
                     relationshipRepository.save(relationship);
                 }
                 break;
-            case "ACCEPT":
+            case "ACCEPT":          //accept a frien request you have received
                 //If their current relationship is a pending friendship
                 if(relationship.getConnection().equals("REQUEST")){
                     relationship.setConnection("FRIEND");
                     relationshipRepository.save(relationship);
                 }
                 break;
-            case "DELETE":
+            case "DELETE":          //delete a friend request you have received
                 //If their current relationship is a pending friendship
                 if(relationship.getConnection().equals("REQUEST")){
                     relationshipRepository.delete(relationship);
                 }
                 break;
-            case "REMOVE":
-                //If their current relationship is friends
+            case "REMOVE":          //remove a friend request you have sent out
+                //If the user changes their mind about the pending friendship
                 if(relationship.getConnection().equals("FRIEND")){
                     relationshipRepository.delete(relationship);
                 }
