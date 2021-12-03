@@ -46,7 +46,7 @@ public class RelationshipService {
                 }
                 break;
             case "REMOVE":
-                //If the user changes their mind about the pending friendship
+                //If their current relationship is friends
                 if(relationship.getConnection().equals("FRIEND")){
                     relationshipRepository.delete(relationship);
                 }

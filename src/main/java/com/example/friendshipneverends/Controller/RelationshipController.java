@@ -1,7 +1,6 @@
 package com.example.friendshipneverends.Controller;
 
 import com.example.friendshipneverends.Entity.Protocol;
-import com.example.friendshipneverends.Entity.Relationship;
 import com.example.friendshipneverends.Service.RelationshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +37,6 @@ public class RelationshipController {
             return ResponseEntity.ok("Response");
         }
         else {
-            //Otherwise, send a request to the destinationHost with the same protocol
             //Otherwise send a request to the destinationHost with the same protocol
             final String REQUEST_URL = protocol.getDestinationHost() + "/relationship";
             WebClient webClient = WebClient.builder()
