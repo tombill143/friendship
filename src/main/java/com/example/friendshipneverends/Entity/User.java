@@ -15,24 +15,24 @@ import javax.persistence.*;
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "user_email", length = 100, nullable = false)
-  private String userEmail;
+  @Column(name = "email", length = 100, nullable = false)
+  private String email;
   @Basic
   @Column(name="host", length = 250, nullable = false)
   private String host;
 
 
-  public User(String userEmail, String host) {
-    this.userEmail = userEmail;
+  public User(String email, String host) {
+    this.email = email;
     this.host = host;
   }
 
-  public String getUserEmail() {
-    return userEmail;
+  public String getEmail() {
+    return email;
   }
 
-  public void setUserEmail(String userEmail) {
-    this.userEmail = userEmail;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getHost() {
@@ -46,7 +46,7 @@ public class User {
   @Override
   public String toString() {
     return "User{" +
-            "userEmail='" + userEmail + '\'' +
+            "email='" + email + '\'' +
             ", host='" + host + '\'' +
             '}';
   }
