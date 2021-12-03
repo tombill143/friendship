@@ -24,30 +24,30 @@ public class RelationshipService {
         User source = userRepository.findByEmail(protocol.getSourceEmail());
         User destination = userRepository.findByEmail(protocol.getDestinationEmail());
         Relationship relationship  = relationshipRepository.findBySourceUserAndDestinationUser(source, destination);
-        switch(protocol.getMethod()){
+        switch(protocol.getMethod()) {
             case "ADD":
                 //If there isn't another relationship between them
-                if(relationship == null){
+                if (relationship == null) {
                     relationship = new Relationship(source, destination, "REQUEST");
                     relationshipRepository.save(relationship);
                 }
                 break;
             case "ACCEPT":
                 //If their current relationship is a pending friendship
-                if(relationship.getConnection().equals("REQUEST")){
+                if (relationship.getConnection().equals("REQUEST")) {
                     relationship.setConnection("FRIEND");
                     relationshipRepository.save(relationship);
                 }
                 break;
             case "DELETE":
                 //If their current relationship is a pending friendship
-                if(relationship.getConnection().equals("REQUEST")){
+                if (relationship.getConnection().equals("REQUEST")) {
                     relationshipRepository.delete(relationship);
                 }
                 break;
             case "REMOVE":
                 //If the user changes their mind about the pending friendship
-                if(relationship.getConnection().equals("FRIEND")){
+                if (relationship.getConnection().equals("FRIEND")) {
                     relationshipRepository.delete(relationship);
                 }
                 break;
@@ -56,10 +56,10 @@ public class RelationshipService {
                 if (relationship == null) {
                     relationship = new Relationship(source, destination, "BLOCK");
                     relationshipRepository.save(relationship);
+                } else {
+                    relationship.setConnection("BLOCK");
+                    relationshipRepository.save(relationship);
                 }
-                else relationship.setConnection("BLOCK");
-                relationshipRepository.save(relationship);
-
                 break;
             default:
 
