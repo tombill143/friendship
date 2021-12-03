@@ -2,6 +2,7 @@ package com.example.friendshipneverends.Entity;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,19 +10,21 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name="user", schema="socialmedia")
+@NoArgsConstructor
+@Table(name= "user", schema= "customers6")
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "user_email", nullable = false, length = 100)
+  @Column(name = "user_email", length = 100)
   private String userEmail;
   @Basic
-  @Column(name="userName", length = 250, nullable = false)
-  private String userName;
+  @Column(name="host", length = 250, nullable = false)
+  private String host;
 
-  public User(String userEmail, String userName) {
+
+  public User(String userEmail, String host) {
     this.userEmail = userEmail;
-    this.userName = userName;
+    this.host = host;
   }
 
   public String getUserEmail() {
@@ -32,20 +35,19 @@ public class User {
     this.userEmail = userEmail;
   }
 
-  public String getUserName() {
-    return userName;
+  public String getHost() {
+    return host;
   }
 
-  public void setUserName(String userName) {
-    this.userName = userName;
+  public void setHost(String host) {
+    this.host = host;
   }
-
 
   @Override
   public String toString() {
     return "User{" +
             "userEmail='" + userEmail + '\'' +
-            ", userName='" + userName + '\'' +
+            ", host='" + host + '\'' +
             '}';
   }
 }
