@@ -42,7 +42,11 @@ public class RelationshipService {
                 }
                 break;
             case "DELETE":
-
+                relationship = relationshipRepository.findBySourceUserAndDestinationUser(source, destination);
+                //If their current relationship is a pending friendship
+                if(relationship.getConnection().equals("REQUEST")){
+                    relationshipRepository.delete(relationship);
+                }
                 break;
             case "REMOVE":
 
