@@ -1,6 +1,5 @@
 package com.example.friendshipneverends.Entity;
 
-import com.example.friendshipneverends.Entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

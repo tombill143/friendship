@@ -20,19 +20,20 @@ public class RelationshipController {
        this.relationshipService = relationshipService;
     }
 
-    private static String personalHost = "${IP_ADDRESS}";
+    private static String personalHost = System.getenv("IP_ADDRESS");
 
     @PostMapping( "/relationship")
     public ResponseEntity<String> postGreetingRoot(@RequestBody String body){
-       // System.out.println("Root request:" + );
+        System.out.println(body);
 
 
         Protocol protocol = new Protocol(body);
-
+        System.out.println(protocol + " " + personalHost);
         //Check if the destinationHost is the same as ours
         if(protocol.getDestinationHost().equals(personalHost)){
             //If that's the case, create a request in the db
             relationshipService.manipulateRelationship(protocol);
+            System.out.println("1");
             //Send a response back to the source user'
             return ResponseEntity.ok("Response");
         }
@@ -45,7 +46,7 @@ public class RelationshipController {
                     .build();
 
             String response = webClient.post()
-                    .body(Mono.just("{request: friendship"), String.class)
+                    .body(Mono.just(body), String.class)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();

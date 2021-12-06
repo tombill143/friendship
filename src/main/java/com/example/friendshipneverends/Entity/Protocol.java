@@ -22,10 +22,10 @@ public class Protocol {
 
     @Override
     public String toString() {
-        return method + '\'' +
+        return method + ' ' +
                 " " + sourceEmail +
                 " " + sourceHost +
-                " '" + destinationEmail +
+                " " + destinationEmail +
                 " " + destinationHost +
                 " " + version + "\r\n";
     }
