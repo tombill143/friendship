@@ -24,30 +24,36 @@ public class RelationshipService {
         User source = userRepository.findByEmail(protocol.getSourceEmail());
         User destination = userRepository.findByEmail(protocol.getDestinationEmail());
         Relationship relationship  = relationshipRepository.findBySourceUserAndDestinationUser(source, destination);
-        switch(protocol.getMethod()) {
-            case "ADD":
+        //Check both ways
+        Relationship backwardsRelationship = relationshipRepository.findBySourceUserAndDestinationUser(destination, source);
+        if(relationship == null){
+            relationship = backwardsRelationship;
+        }
+
+        switch(protocol.getMethod()){
+            case "ADD":             //send a request to add a friend
                 //If there isn't another relationship between them
-                if (relationship == null) {
+                if(relationship == null){
                     relationship = new Relationship(source, destination, "REQUEST");
                     relationshipRepository.save(relationship);
                 }
                 break;
-            case "ACCEPT":
+            case "ACCEPT":          //accept a frien request you have received
                 //If their current relationship is a pending friendship
-                if (relationship.getConnection().equals("REQUEST")) {
+                if(relationship.getConnection().equals("REQUEST")){
                     relationship.setConnection("FRIEND");
                     relationshipRepository.save(relationship);
                 }
                 break;
-            case "DELETE":
+            case "DELETE":          //delete a friend request you have received
                 //If their current relationship is a pending friendship
-                if (relationship.getConnection().equals("REQUEST")) {
+                if(relationship.getConnection().equals("REQUEST")){
                     relationshipRepository.delete(relationship);
                 }
                 break;
-            case "REMOVE":
+            case "REMOVE":          //remove a friend request you have sent out
                 //If the user changes their mind about the pending friendship
-                if (relationship.getConnection().equals("FRIEND")) {
+                if(relationship.getConnection().equals("FRIEND")){
                     relationshipRepository.delete(relationship);
                 }
                 break;
@@ -56,7 +62,8 @@ public class RelationshipService {
                 if (relationship == null) {
                     relationship = new Relationship(source, destination, "BLOCK");
                     relationshipRepository.save(relationship);
-                } else {
+                }
+                else {
                     relationship.setConnection("BLOCK");
                     relationshipRepository.save(relationship);
                 }
