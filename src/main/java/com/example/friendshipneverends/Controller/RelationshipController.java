@@ -34,7 +34,7 @@ public class RelationshipController {
             //If that's the case, create a request in the db
             relationshipService.manipulateRelationship(protocol);
             //Send a response back to the source user'
-            return ResponseEntity.ok("Response");
+            return ResponseEntity.ok("Confirmed Response");
         }
         else {
             //Otherwise send a request to the destinationHost with the same protocol
