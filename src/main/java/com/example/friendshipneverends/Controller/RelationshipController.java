@@ -23,9 +23,9 @@ public class RelationshipController {
     private static String personalHost = "${IP_ADDRESS}";
 
     @PostMapping( "/relationship")
-    public ResponseEntity<String> postGreetingRoot(@RequestBody String body){
+    public ResponseEntity<String> postGreetingRoot(@RequestParam String body){
        // System.out.println("Root request:" + );
-
+        System.out.println(body);
 
         Protocol protocol = new Protocol(body);
 
