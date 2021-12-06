@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-    <form th:action="@{/relationship}" method="post" action="#">
+    <form>
         <label>Your email:</label>
         <input type="text" class="source-email protocol-data">
         <br>
@@ -21,26 +21,31 @@
 
         <select class="connection protocol-data">
             <option value="ADD">Send friend request</option>
+            <option value="ACCEPT">Accept friend request</option>
+            <option value="DELETE">Delete friend request</option>
+            <option value="REMOVE">Remove friend</option>
+            <option value="BLOCK">Block user</option>
         </select>
         <br>
 
-        <input type="text" style="display:none;" th:value="${body}" name="body" class="protocol">
+        <button type="submit" class="submit-btn">Submit</button>
+
         <script>
             const sourceEmail = document.querySelector(".source-email");
             const destinationEmail = document.querySelector(".destination-email");
             const destinationHost = document.querySelector(".destination-host");
             const connection = document.querySelector(".connection");
-            const protocol = document.querySelector(".protocol");
+            const button = document.querySelector("button");
 
-            document.querySelectorAll(".protocol-data").forEach((input) => {
-               input.addEventListener("change", () => {
-                   protocol.value = connection.value + " " + sourceEmail.value + " ${IP_ADDRESS} " + destinationEmail.value + " " + destinationHost.value+ " 0.1\n";
-               })
-
+            button.addEventListener("click", () => {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/relationship", true);
+                xhr.setRequestHeader("Content-Type", "text/plain");
+                xhr.send(connection.value + " " + sourceEmail.value + " " + window.location.host + " " + destinationEmail.value + " " + destinationHost.value+ " 0.1\n");
             });
+
         </script>
 
-        <button type="submit" class="submit-btn">Submit</button>
     </form>
 
 </body>

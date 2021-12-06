@@ -41,7 +41,7 @@ public class RelationshipService {
             case "ACCEPT":          //accept a frien request you have received
                 //If their current relationship is a pending friendship
                 if(relationship != null){
-                    if(relationship.getConnection().equals("REQUEST")){
+                    if(relationship.getConnection().equals("REQUEST") && relationship.getSourceUser().getEmail().equals(protocol.getDestinationEmail())){
                         relationship.setConnection("FRIEND");
                         relationshipRepository.save(relationship);
                     }

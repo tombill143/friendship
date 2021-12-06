@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 
-@RestController
+@Controller
 public class RelationshipController {
 
     RelationshipService relationshipService;
@@ -22,10 +24,22 @@ public class RelationshipController {
 
     private static String personalHost = System.getenv("IP_ADDRESS");
 
-    @PostMapping( "/relationship")
-    public ResponseEntity<String> postGreetingRoot(@RequestBody String body){
-        System.out.println(body);
+    @GetMapping("/")
+    public String getForm(Model model){
+        model.addAttribute("sourceHost", personalHost);
 
+        return "index";
+    }
+
+    @PostMapping("/relationship2")
+    public ResponseEntity<String> postAltRelationship(@RequestParam String form){
+        return postRelationship(form);
+    }
+
+    @PostMapping( "/relationship")
+    public ResponseEntity<String> postRelationship(@RequestBody String body){
+
+        System.out.println(body);
 
         Protocol protocol = new Protocol(body);
         System.out.println(protocol + " " + personalHost);
