@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 
-@RestController
+@Controller
 public class RelationshipController {
 
     RelationshipService relationshipService;
@@ -20,15 +22,22 @@ public class RelationshipController {
        this.relationshipService = relationshipService;
     }
 
-    private static String personalHost = "${IP_ADDRESS}";
+    private static String personalHost = System.getenv("IP_ADDRESS");
+
+    @GetMapping("/")
+    public String getForm(Model model){
+        model.addAttribute("sourceHost", personalHost);
+
+        return "index";
+    }
 
     @PostMapping( "/relationship")
-    public ResponseEntity<String> postGreetingRoot(@RequestBody String body){
-       // System.out.println("Root request:" + );
+    public ResponseEntity<String> postRelationship(@RequestBody String body){
+
         System.out.println(body);
 
         Protocol protocol = new Protocol(body);
-
+        System.out.println(protocol + " " + personalHost);
         //Check if the destinationHost is the same as ours
         if(protocol.getDestinationHost().equals(personalHost)){
             //If that's the case, create a request in the db
@@ -45,7 +54,7 @@ public class RelationshipController {
                     .build();
 
             String response = webClient.post()
-                    .body(Mono.just("{request: friendship"), String.class)
+                    .body(Mono.just(body), String.class)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();

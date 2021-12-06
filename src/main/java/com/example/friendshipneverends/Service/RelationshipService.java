@@ -40,9 +40,11 @@ public class RelationshipService {
                 break;
             case "ACCEPT":          //accept a frien request you have received
                 //If their current relationship is a pending friendship
-                if(relationship.getConnection().equals("REQUEST")){
-                    relationship.setConnection("FRIEND");
-                    relationshipRepository.save(relationship);
+                if(relationship != null){
+                    if(relationship.getConnection().equals("REQUEST") && relationship.getSourceUser().getEmail().equals(protocol.getDestinationEmail())){
+                        relationship.setConnection("FRIEND");
+                        relationshipRepository.save(relationship);
+                    }
                 }
                 break;
             case "DELETE":          //delete a friend request you have received
