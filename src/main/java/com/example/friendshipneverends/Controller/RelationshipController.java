@@ -31,11 +31,6 @@ public class RelationshipController {
         return "index";
     }
 
-    @PostMapping("/relationship2")
-    public ResponseEntity<String> postAltRelationship(@RequestParam String form){
-        return postRelationship(form);
-    }
-
     @PostMapping( "/relationship")
     public ResponseEntity<String> postRelationship(@RequestBody String body){
 
